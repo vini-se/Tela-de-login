@@ -1,23 +1,28 @@
 <div id="background">
   <div id="login-modal" class="container container-fluid text-white">
 
-    <div id="title"><h1>Login</h1></div>
-
-    <form class="formgroup">
-
-      <div>
-        <label for="emailInput" class="d-block">E-mail</label>
-        <input type="text" id="emailInput">
+    <div class="row">
+      <div class="col-12">
+        <div id="title"><h1>Login</h1></div>
       </div>
+    </div>
 
-      <div>
-        <label for="passInput" class="d-block">Password</label>
-        <input type="password" id="passInput">
+    <form class="formgroup" [formGroup]="loginForm">
+      <div class="row">
+        <div class="col-12">
+          <label for="email-input" class="d-block">E-mail</label>
+          <input type="text" id="email-input" formControlName="email">
+        </div>
+
+        <div class="col-12">
+          <label for="pass-input" class="d-block">Password</label>
+          <input type="password" id="pass-input" formControlName="password">
+        </div>
+
+        <div class="col-12">
+          <div id="submit-btn"><button>login</button></div>
+        </div>
       </div>
-
     </form>
-
-    <div id="submit-btn"><button>login</button></div>
-
   </div>
 </div>
