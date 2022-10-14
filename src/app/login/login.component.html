@@ -9,18 +9,36 @@
 
     <form class="formgroup" [formGroup]="loginForm">
       <div class="row">
-        <div class="col-12">
-          <label for="email-input" class="d-block">E-mail</label>
+        <div class="col-12 mb-3">
+          <label for="email-input" class="d-block mb-1">E-mail *</label>
           <input type="text" id="email-input" formControlName="email">
+
+          <div *ngIf="emailControl.invalid && (emailControl.dirty || emailControl.touched)" class="alert alert-danger p-1 mt-2">
+
+            <small *ngIf="emailControl.errors?.['required']" class="animated fadeIn d-block mt-1"> Campo obrigatório! </small>
+
+            <small *ngIf="emailControl.errors?.['email']" class="animated fadeIn d-block mt-1"> E-mail Inválido! </small>
+
+          </div>
+
         </div>
 
-        <div class="col-12">
-          <label for="pass-input" class="d-block">Password</label>
+        <div class="col-12 mb-5">
+          <label for="pass-input" class="d-block mb-1">Password *</label>
           <input type="password" id="pass-input" formControlName="password">
+
+          <div *ngIf="passwordControl.invalid && (passwordControl.dirty || passwordControl.touched)" class="alert alert-danger p-1 mt-2">
+
+            <small *ngIf="passwordControl.hasError('required')" class="animated fadeIn d-block mt-1"> Campo obrigatório! </small>
+
+            <small *ngIf="passwordControl.hasError('minlength')" class="animated fadeIn d-block mt-1 min"> A senha deve conter no mínimo 8 caracteres! </small>
+
+          </div>
+
         </div>
 
         <div class="col-12">
-          <div id="submit-btn"><button>login</button></div>
+          <div id="submit-btn"><button [disabled]="loginForm.invalid">login</button></div>
         </div>
       </div>
     </form>
