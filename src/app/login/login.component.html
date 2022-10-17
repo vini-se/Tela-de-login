@@ -11,7 +11,7 @@
       <div class="row">
         <div class="col-12 mb-3">
           <label for="email-input" class="d-block mb-1">E-mail *</label>
-          <input type="text" id="email-input" formControlName="email">
+          <input type="text" id="email-input" formControlName="email" autocomplete="off">
 
           <div *ngIf="emailControl.invalid && (emailControl.dirty || emailControl.touched)" class="alert alert-danger p-1 mt-2">
 
@@ -38,7 +38,22 @@
         </div>
 
         <div class="col-12">
-          <div id="submit-btn"><button [disabled]="loginForm.invalid">login</button></div>
+
+          <div id="submit-btn"><button (click)="openSubmitModal(templateSubmitModal)" [disabled]="loginForm.invalid">login</button></div>
+
+          <ng-template #templateSubmitModal>
+            <div class="modal-body">
+              <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+              </button>
+              <div class="mt-2">
+
+                <h5 [class]="classSubmitModal"> {{ phraseSubmitModal }} </h5>
+
+              </div>
+            </div>
+          </ng-template>
+
         </div>
       </div>
     </form>
