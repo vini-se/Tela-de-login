@@ -45,8 +45,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   createLoginForm(): void {
     this.loginForm = this._formBuilder.group({
-      email: [null, Validators.compose([Validators.required, Validators.email])],
-      password: [null, Validators.compose([Validators.required, Validators.minLength(8)])]
+      email: ['admin@admin', Validators.compose([Validators.required, Validators.email])],
+      password: ['admin123', Validators.compose([Validators.required, Validators.minLength(8)])]
     })
   }
 
@@ -58,13 +58,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   submitLoginForm(): void {
     const pegarValue: ILogin = this.loginForm.value;
     const { email, password, ...outros } = pegarValue;
+
+    const userWebToken = {date : new Date(Date.now()).toLocaleString([], {dateStyle: 'short'}), status: 'userIsLogged'}
+
     this.classSubmitModal = 'text-';
 
     if (email === "admin@admin" && password === "admin123") {
-      localStorage.setItem('webToken', 'userIsLogged');
-      // webToken: {date = new Date(), status = 'userIsLogged'}
-      const userWebToken = localStorage.getItem('webToken');
-      this.phraseSubmitModal = 'Login com sucesso! ' + userWebToken;
+      localStorage.setItem('webToken', JSON.stringify(userWebToken));
+      const retrievedUserWebToken: any = localStorage.getItem('webToken');
+
+      this.phraseSubmitModal = 'Login com sucesso!<br><br>Data do login: ' + JSON.parse(retrievedUserWebToken).date;
       this.classSubmitModal += 'success';
     }
     else {
